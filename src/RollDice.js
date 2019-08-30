@@ -21,7 +21,11 @@ class RollDice extends Component {
       this.getRandomInt(this.props.dieSides.length) - 1
     ];
 
-    this.setState({ die1, die2 });
+    this.setState({ die1: die1, die2: die2, rolling: true });
+
+    setTimeout(() => {
+      this.setState({ rolling: false });
+    }, 1000);
   };
 
   getRandomInt = max => {
@@ -36,11 +40,14 @@ class RollDice extends Component {
 
     return (
       <div className="RollDice">
+        <h1 className="header">No Dice!</h1>
         <div className="RollDice-container">
-          <Die num={this.state.die1} />
-          <Die num={this.state.die2} />
+          <Die num={this.state.die1} jiggling={this.state.rolling} />
+          <Die num={this.state.die2} jiggling={this.state.rolling} />
         </div>
-        <button onClick={this.rollDice}>{buttonText}</button>
+        <button onClick={this.rollDice} disabled={this.state.rolling}>
+          {buttonText}
+        </button>
       </div>
     );
   }
