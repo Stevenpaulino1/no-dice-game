@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./RollDice.css";
 
 import Die from "./Die";
 
@@ -6,7 +7,8 @@ class RollDice extends Component {
   state = {
     die1: "one",
     die2: "two",
-    sides: 6
+    sides: 6,
+    rolling: false
   };
 
   rollDice = () => {
@@ -27,12 +29,19 @@ class RollDice extends Component {
   };
 
   render() {
+    let buttonText = "Roll Dice";
+    if (this.state.rolling) {
+      buttonText = "Rolling...";
+    }
+
     return (
-      <React.Fragment>
-        <Die num={this.state.die1} />
-        <Die num={this.state.die2} />
-        <button onClick={this.rollDice}>Roll Dice</button>
-      </React.Fragment>
+      <div className="RollDice">
+        <div className="RollDice-container">
+          <Die num={this.state.die1} />
+          <Die num={this.state.die2} />
+        </div>
+        <button onClick={this.rollDice}>{buttonText}</button>
+      </div>
     );
   }
 }
@@ -40,6 +49,5 @@ class RollDice extends Component {
 RollDice.defaultProps = {
   dieSides: ["one", "two", "three", "four", "five", "six"]
 };
-//parseInt
 
 export default RollDice;
